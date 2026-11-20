@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>يوبيري · Yoberry</title>
+<meta name="description" content="آيس كريم وشوكولاتة، صُنعت بحب في السعودية — Ice cream & chocolate, made with love in Saudi">
+<meta name="theme-color" content="#EBA1B5">
+<link rel="canonical" href="https://yoberry.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yoberry.vercel.app/">
+<meta property="og:title" content="يوبيري · Yoberry">
+<meta property="og:description" content="آيس كريم وشوكولاتة، صُنعت بحب في السعودية">
+<meta property="og:image" content="https://yoberry.vercel.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icon-180.png">
+<link rel="preload" href="/assets/fonts/elmessiri-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/plexar-600.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Messiri";src:url(/assets/fonts/elmessiri-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"PlexAr";src:url(/assets/fonts/plexar-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"PlexAr";src:url(/assets/fonts/plexar-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Cinzel";src:url(/assets/fonts/cinzel-800.woff2) format("woff2");font-weight:800;font-display:swap}
+:root{
+  --pink:#EBA1B5; --pink-hi:#F6CCD8; --blush:#FCEBF0;
+  --berry:#7A2E48; --berry-2:#9B3E5E; --ink:#5C1F35; --muted:#8A5A6A;
+  --card:#FFFFFF; --r:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;background:var(--pink)}
+body{min-height:100svh;font-family:"PlexAr",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);
+  background:
+    radial-gradient(120% 60% at 85% 0%, var(--pink-hi) 0%, transparent 55%),
+    radial-gradient(90% 50% at 0% 100%, #E68FA7 0%, transparent 60%),
+    var(--pink);
+  overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* melting cream drip */
+.drip{position:fixed;inset:0 0 auto 0;height:86px;pointer-events:none;z-index:1}
+.drip svg{width:100%;height:100%;display:block}
+.drop{position:absolute;width:9px;height:12px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#fff;top:0;opacity:0;
+  animation:fall 7s cubic-bezier(.5,0,.8,.4) infinite}
+.drop:nth-of-type(1){left:13%;animation-delay:1.2s}
+.drop:nth-of-type(2){left:57%;animation-delay:3.6s}
+.drop:nth-of-type(3){left:83%;animation-delay:5.4s}
+@keyframes fall{0%{transform:translateY(46px) scale(.4);opacity:0}8%{opacity:1;transform:translateY(58px) scale(1)}
+  60%{opacity:.9}100%{transform:translateY(420px) scale(.9);opacity:0}}
+
+/* sprinkles */
+.sprinkles{position:fixed;inset:0;pointer-events:none;z-index:0}
+.sprinkles i{position:absolute;width:12px;height:4px;border-radius:4px;background:#fff;opacity:.55;
+  animation:float 9s ease-in-out infinite}
+.sprinkles i.b{background:var(--berry);opacity:.18}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--rot))}50%{transform:translateY(-10px) rotate(calc(var(--rot) + 18deg))}}
+
+.lang{position:fixed;top:max(14px,env(safe-area-inset-top));inset-inline-end:14px;z-index:5;
+  font-weight:600;font-size:13px;letter-spacing:.02em;padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.92);color:var(--berry);box-shadow:0 4px 14px rgba(122,46,72,.18)}
+.lang:focus-visible,.btn:focus-visible,.share:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.wrap{position:relative;z-index:2;max-width:440px;margin:0 auto;padding:104px 20px calc(36px + env(safe-area-inset-bottom))}
+.hero{text-align:center}
+.mark{width:96px;height:auto;display:block;margin:0 auto 14px;filter:drop-shadow(0 6px 14px rgba(122,46,72,.22));overflow:visible}
+.leaf{transform-box:view-box;transform-origin:1755px 989px;animation:sway 4.8s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3.5deg)}}
+.name-ar{font-family:"Messiri","PlexAr",serif;font-weight:700;font-size:44px;line-height:1.15;color:#fff;
+  text-shadow:0 2px 12px rgba(122,46,72,.25)}
+.name-en{font-family:"Cinzel",serif;font-weight:800;font-size:13px;letter-spacing:.38em;color:var(--ink);margin-top:4px;
+  padding-inline-start:.38em}
+html[lang=en] .name-ar{order:2;font-size:15px;color:var(--ink);text-shadow:none;margin-top:6px}
+html[lang=en] .name-en{order:1;font-size:34px;letter-spacing:.16em;color:#fff;margin-top:0;text-shadow:0 2px 12px rgba(122,46,72,.25)}
+.names{display:flex;flex-direction:column;align-items:center}
+.tagline{margin:12px auto 0;max-width:320px;font-size:15px;line-height:1.6;color:var(--ink)}
+
+.links{display:grid;gap:12px;margin-top:28px}
+.btn{position:relative;display:flex;align-items:center;gap:14px;min-height:66px;padding:12px 16px;border-radius:var(--r);
+  background:var(--card);box-shadow:0 8px 22px rgba(122,46,72,.13),0 1px 0 rgba(255,255,255,.8) inset;
+  transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .2s;overflow:hidden;
+  opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.9,.3,1.2) forwards;animation-delay:calc(var(--i) * 70ms + 150ms)}
+@keyframes rise{to{opacity:1;transform:none}}
+.btn:active{transform:scale(.965)}
+.ic{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--blush);color:var(--berry)}
+.ic svg{width:22px;height:22px}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;text-align:start}
+.txt b{font-weight:600;font-size:16px;line-height:1.35}
+.txt small{font-size:12.5px;color:var(--muted);line-height:1.4;direction:inherit}
+.txt small.ltr{direction:ltr;unicode-bidi:isolate;text-align:end}
+html[lang=en] .txt small.ltr{text-align:start}
+.chev{flex:none;width:18px;height:18px;color:var(--berry);opacity:.55}
+html[dir=rtl] .chev{transform:scaleX(-1)}
+.btn.primary{background:linear-gradient(135deg,var(--berry) 0%,var(--berry-2) 100%);color:#fff}
+.btn.primary .ic{background:rgba(255,255,255,.16);color:#fff}
+.btn.primary small{color:rgba(255,255,255,.82)}
+.btn.primary .chev{color:#fff;opacity:.8}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);
+  transform:translateX(-120%);animation:shine 5.5s ease-in-out 1.4s infinite}
+@keyframes shine{0%{transform:translateX(-120%)}18%,100%{transform:translateX(120%)}}
+
+.share{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px auto 0;padding:11px 20px;border-radius:999px;
+  font-weight:600;font-size:14px;color:var(--ink);background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.7)}
+.share svg{width:17px;height:17px}
+
+footer{margin-top:34px;text-align:center;color:var(--ink)}
+.made{display:inline-block;font-family:"Cinzel",serif;font-weight:800;font-size:11px;letter-spacing:.32em;padding-bottom:5px;
+  border-bottom:2px solid #fff;color:#fff;padding-inline-start:.32em}
+.copy{margin-top:10px;font-size:11.5px;opacity:.75}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:9;
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;transition:.25s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .btn{opacity:1;transform:none}
+  .drop{display:none}
+}
+</style>
+</head>
+<body>
+<div class="sprinkles" aria-hidden="true"><i class="b" style="left:32.8%;top:26.4%;--rot:166deg;animation-delay:-0.3s"></i><i style="left:78.6%;top:21.7%;--rot:149deg;animation-delay:-0.3s"></i><i style="left:49.7%;top:17.1%;--rot:111deg;animation-delay:-2.5s"></i><i style="left:25.1%;top:59.2%;--rot:15deg;animation-delay:-5.0s"></i><i class="b" style="left:14.4%;top:32.3%;--rot:160deg;animation-delay:-3.5s"></i><i style="left:8.7%;top:62.0%;--rot:12deg;animation-delay:-5.9s"></i><i style="left:7.3%;top:84.4%;--rot:74deg;animation-delay:-2.5s"></i><i style="left:52.7%;top:60.8%;--rot:143deg;animation-delay:-4.9s"></i><i class="b" style="left:19.6%;top:61.7%;--rot:163deg;animation-delay:-1.1s"></i><i style="left:12.0%;top:72.4%;--rot:144deg;animation-delay:-0.4s"></i><i style="left:21.9%;top:69.8%;--rot:109deg;animation-delay:-4.7s"></i><i style="left:45.8%;top:89.7%;--rot:92deg;animation-delay:-1.8s"></i><i class="b" style="left:76.1%;top:71.3%;--rot:62deg;animation-delay:-0.5s"></i><i style="left:30.6%;top:54.6%;--rot:87deg;animation-delay:-4.4s"></i><i style="left:29.5%;top:94.4%;--rot:30deg;animation-delay:-3.1s"></i><i style="left:18.2%;top:42.0%;--rot:125deg;animation-delay:-2.5s"></i></div>
+<div class="drip" aria-hidden="true">
+  <svg viewBox="0 0 400 86" preserveAspectRatio="none"><path d="M0 0H400V24Q398.0 27.0 396.0 24C396.0 36.0 388.0 36.0 388.0 24Q376.8 27.0 365.5 24C365.5 48.0 354.5 48.0 354.5 24Q337.8 27.0 321.0 24C321.0 64.0 303.0 64.0 303.0 24Q287.8 27.0 272.5 24C272.5 39.0 263.5 39.0 263.5 24Q248.8 27.0 234.0 24C234.0 58.0 218.0 58.0 218.0 24Q200.0 27.0 182.0 24C182.0 46.0 170.0 46.0 170.0 24Q151.0 27.0 132.0 24C132.0 68.0 112.0 68.0 112.0 24Q97.5 27.0 83.0 24C83.0 42.0 73.0 42.0 73.0 24Q55.5 27.0 38.0 24C38.0 54.0 22.0 54.0 22.0 24Q11.0 27.0 0 24Z" fill="#fff"/></svg>
+  <span class="drop"></span><span class="drop"></span><span class="drop"></span>
+</div>
+
+<button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+
+<main class="wrap">
+  <header class="hero">
+    <svg class="mark" viewBox="0 0 2540 3333" role="img" aria-label="Yoberry logo">
+      <defs>
+        <path id="ym" fill-rule="evenodd" d="M 1397.6 2055.9 L 1905.0 1287.9 C 1950.3 1219.4 1957.8 1124.6 1872.0 1083.3 C 1834.9 1065.4 1787.1 1058.9 1747.6 1047.5 C 1746.8 1027.5 1746.7 1011.1 1748.2 990.9 C 1551.3 1047.7 1517.4 1077.3 1360.3 1201.8 C 1348.5 1042.9 1346.7 880.0 1390.4 725.5 C 1526.6 243.7 2001.6 44.5 2459.1 0.0 C 2426.0 278.2 2337.2 566.1 2131.8 766.0 C 2061.6 834.4 1977.5 888.2 1889.7 930.6 C 1861.0 944.5 1830.4 954.8 1800.6 966.3 C 1790.7 970.1 1779.8 973.4 1771.2 980.0 C 1768.0 982.4 1765.2 985.4 1762.5 988.6 C 1761.4 990.0 1757.3 992.8 1759.1 992.8 L 2537.8 992.8 C 2537.8 992.8 2538.3 998.8 2538.3 998.8 C 2539.7 1015.8 2535.8 1030.1 2535.0 1046.3 C 2376.6 1088.6 2318.3 1139.1 2227.3 1272.9 L 1543.0 2279.5 L 1543.0 3011.8 C 1543.0 3185.4 1664.8 3247.2 1817.0 3275.0 C 1817.7 3293.6 1817.5 3310.8 1817.1 3329.2 C 1798.0 3329.6 1778.8 3332.4 1759.5 3332.4 L 738.0 3332.4 C 718.8 3332.4 699.2 3329.2 680.4 3329.2 C 680.1 3310.7 679.5 3294.1 680.6 3275.2 C 749.0 3257.6 829.7 3243.9 884.0 3194.2 C 978.0 3108.1 952.1 2859.0 952.1 2738.6 L 952.1 2293.8 L 264.8 1205.8 C 205.0 1111.1 107.5 1071.1 3.5 1045.7 C 3.3 1030.0 0.0 1015.5 1.4 999.2 C 1.4 999.2 1.9 992.9 2.0 992.9 L 1032.7 992.9 C 1032.7 992.9 1033.6 997.9 1033.6 997.9 C 1036.7 1014.9 1033.4 1029.1 1033.7 1045.6 C 995.5 1053.9 949.0 1065.5 915.3 1086.1 C 813.3 1148.4 905.0 1275.7 947.3 1342.6 L 1397.6 2055.9 Z M 2100.7 317.2 C 1883.2 428.1 1706.9 576.9 1553.8 766.3 C 1499.4 833.5 1420.4 937.8 1401.9 1023.0 C 1394.9 1055.7 1398.0 1089.1 1399.4 1122.3 C 1481.1 1025.3 1553.9 921.4 1632.5 822.1 C 1775.5 641.5 1931.8 473.6 2100.7 317.2 Z"/>
+        <clipPath id="leafClip"><path d="M1145 -255H2745V985H1740V1265H1145Z"/></clipPath>
+        <clipPath id="bodyClip"><path clip-rule="evenodd" d="M-300 -300H2900V3700H-300Z M1145 -255H2745V985H1740V1265H1145Z"/></clipPath>
+      </defs>
+      <use href="#ym" clip-path="url(#bodyClip)" fill="#fff"/>
+      <g class="leaf"><use href="#ym" clip-path="url(#leafClip)" fill="#fff"/></g>
+    </svg>
+    <div class="names">
+      <h1 class="name-ar" data-name-ar>يوبيري</h1>
+      <p class="name-en" lang="en">YOBERRY</p>
+    </div>
+    <p class="tagline" data-i18n="tagline">آيس كريم وشوكولاتة، صُنعت بحب في السعودية</p>
+  </header>
+
+  <nav class="links" id="links" aria-label="Links"></nav>
+
+  <button class="share" id="share" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/></svg>
+    <span data-i18n="share">شارك يوبيري</span>
+  </button>
+
+  <footer>
+    <span class="made" lang="en">MADE IN SAUDI</span>
+    <p class="copy" dir="ltr">© <span id="yr">2026</span> Yoberry</p>
+  </footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== Edit links here ===== */
+const CONFIG = {
+  "siteUrl": "https://yoberry.vercel.app",
+  "whatsapp": "966500000000",
+  "instagram": "yoberry",
+  "personalInstagram": "",
+  "snapchat": "",
+  "tiktok": "",
+  "maps": "",
+  "email": "",
+  "taglineAr": "آيس كريم وشوكولاتة، صُنعت بحب في السعودية",
+  "taglineEn": "Ice cream & chocolate, made with love in Saudi"
+};
+/* =========================== */
+
+const T = {
+  ar: {
+    tagline: CONFIG.taglineAr,
+    waT: "اطلب عبر واتساب", waS: "للطلبات والاستفسارات",
+    waMsg: "مرحبا يوبيري 🍦 حاب أطلب",
+    igT: "تابعنا على إنستقرام", pigT: "حساب المؤسس",
+    scT: "سناب شات", ttT: "تيك توك", mapT: "موقعنا", mapS: "افتح في الخرائط", mailT: "راسلنا بالإيميل",
+    vcT: "احفظ رقمنا", vcS: "أضف يوبيري لجهات الاتصال",
+    share: "شارك يوبيري", copied: "تم نسخ الرابط ✓", other: "English"
+  },
+  en: {
+    tagline: CONFIG.taglineEn,
+    waT: "Order on WhatsApp", waS: "Orders & questions",
+    waMsg: "Hi Yoberry 🍦 I'd like to order",
+    igT: "Follow us on Instagram", pigT: "Meet the founder",
+    scT: "Snapchat", ttT: "TikTok", mapT: "Find us", mapS: "Open in Maps", mailT: "Email us",
+    vcT: "Save our contact", vcS: "Add Yoberry to your contacts",
+    share: "Share Yoberry", copied: "Link copied ✓", other: "عربي"
+  }
+};
+
+const I = {
+  wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.3l1.4-3.9A8.4 8.4 0 1 1 20 11.6Z"/><path d="M9 8.6c0 3.3 2.9 6.3 6.3 6.4l1-1.4-2-1.1-.9.8a5 5 0 0 1-2.5-2.5l.8-.9-1.1-2-1.4 1Z" fill="currentColor" stroke="none"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  sc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5c3 0 5 2.2 5 5.2v2.1l1.8-.6.6 1.3-2.4 1.2c.6 1.7 1.9 2.9 3.5 3.4-.4.8-1.6 1.1-2.8 1.2l-.4 1.4c-1.3-.2-2.4 0-3.4.7-1.2.9-2.6.9-3.8 0-1-.7-2.1-.9-3.4-.7l-.4-1.4c-1.2-.1-2.4-.4-2.8-1.2 1.6-.5 2.9-1.7 3.5-3.4l-2.4-1.2.6-1.3 1.8.6V8.7c0-3 2-5.2 5-5.2Z"/></svg>',
+  tt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5v11.2a3.8 3.8 0 1 1-3.8-3.8"/><path d="M14 3.5c.4 2.6 2.2 4.4 5 4.6"/></svg>',
+  map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>',
+  vc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9.5" cy="11" r="2.3"/><path d="M6 16.5c.6-1.6 1.9-2.4 3.5-2.4s2.9.8 3.5 2.4"/><path d="M15 10h3M15 13.5h3"/></svg>'
+};
+const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
+
+function store(k, v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k, v);}catch(e){ return null; } }
+
+function render(lang){
+  const t = T[lang], items = [];
+  const wa = CONFIG.whatsapp && "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(t.waMsg);
+  if (wa) items.push({cls:"primary", ic:I.wa, title:t.waT, sub:t.waS, href:wa, id:"whatsapp"});
+  if (CONFIG.instagram) items.push({ic:I.ig, title:t.igT, sub:"@"+CONFIG.instagram, ltr:true, href:"https://instagram.com/"+CONFIG.instagram, id:"instagram"});
+  if (CONFIG.personalInstagram) items.push({ic:I.ig, title:t.pigT, sub:"@"+CONFIG.personalInstagram, ltr:true, href:"https://instagram.com/"+CONFIG.personalInstagram, id:"founder"});
+  if (CONFIG.snapchat) items.push({ic:I.sc, title:t.scT, sub:"@"+CONFIG.snapchat, ltr:true, href:"https://www.snapchat.com/add/"+CONFIG.snapchat, id:"snapchat"});
+  if (CONFIG.tiktok) items.push({ic:I.tt, title:t.ttT, sub:"@"+CONFIG.tiktok, ltr:true, href:"https://www.tiktok.com/@"+CONFIG.tiktok, id:"tiktok"});
+  if (CONFIG.maps) items.push({ic:I.map, title:t.mapT, sub:t.mapS, href:CONFIG.maps, id:"maps"});
+  if (CONFIG.email) items.push({ic:I.mail, title:t.mailT, sub:CONFIG.email, ltr:true, href:"mailto:"+CONFIG.email, id:"email"});
+  items.push({ic:I.vc, title:t.vcT, sub:t.vcS, href:"/yoberry.vcf", id:"save-contact", download:true});
+  document.getElementById("links").innerHTML = items.map((it, n) =>
+    `<a class="btn ${it.cls||""}" style="--i:${n}" href="${it.href}" data-id="${it.id}"${it.download?' download="Yoberry.vcf"':' target="_blank" rel="noopener"'}>
+       <span class="ic" aria-hidden="true">${it.ic}</span>
+       <span class="txt"><b>${it.title}</b><small${it.ltr?' class="ltr"':''}>${it.sub}</small></span>${CHEV}</a>`).join("");
+}
+
+function applyLang(lang){
+  const h = document.documentElement;
+  h.lang = lang; h.dir = lang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = T[lang][el.dataset.i18n]);
+  const b = document.getElementById("lang");
+  b.textContent = T[lang].other; b.lang = lang === "ar" ? "en" : "ar";
+  render(lang);
+  store("yb-lang", lang);
+}
+
+const q = new URLSearchParams(location.search).get("lang");
+let lang = (q === "en" || q === "ar") ? q : (store("yb-lang") || "ar");
+applyLang(lang);
+document.getElementById("lang").addEventListener("click", () => { lang = lang === "ar" ? "en" : "ar"; applyLang(lang); });
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); }
+document.getElementById("share").addEventListener("click", async () => {
+  const data = { title: "Yoberry · يوبيري", text: T[lang].tagline, url: CONFIG.siteUrl + "/" };
+  try {
+    if (navigator.share) { await navigator.share(data); return; }
+    await navigator.clipboard.writeText(data.url); toast(T[lang].copied);
+  } catch (e) { /* user cancelled */ }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
